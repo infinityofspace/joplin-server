@@ -1,4 +1,4 @@
-# joplin-docker
+# joplin-server
 
 ## About
 
