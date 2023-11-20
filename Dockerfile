@@ -4,7 +4,7 @@
 
 FROM node:18-bullseye AS builder
 
-ARG VERSION
+ARG VERSION=dev
 
 RUN apt-get update \
     && apt-get install -y \
@@ -14,9 +14,31 @@ RUN apt-get update \
 # Enables Yarn
 RUN corepack enable
 
-WORKDIR /build
+WORKDIR /code
 
 RUN git clone --depth 1 -b ${VERSION} https://github.com/laurent22/joplin.git .
+
+WORKDIR /build
+
+RUN mkdir -p ./.yarn && cp -r /code/.yarn/plugins ./.yarn/plugins \
+    && cp -r /code/.yarn/releases ./.yarn \
+    && cp -r /code/.yarn/patches ./.yarn \
+    && cp /code/package.json . \
+    && cp /code/.yarnrc.yml . \
+    && cp /code/yarn.lock . \
+    && cp /code/gulpfile.js . \
+    && cp /code/tsconfig.json . \
+    && mkdir -p ./packages && cp -r /code/packages/turndown ./packages \
+    && cp -r /code/packages/turndown-plugin-gfm ./packages \
+    && cp -r /code/packages/fork-htmlparser2 ./packages \
+    && cp -r /code/packages/fork-sax ./packages \
+    && cp -r /code/packages/fork-uslug ./packages \
+    && cp -r /code/packages/htmlpack ./packages \
+    && cp -r /code/packages/renderer ./packages \
+    && cp -r /code/packages/tools ./packages \
+    && cp -r /code/packages/utils ./packages \
+    && cp -r /code/packages/lib ./packages \
+    && cp -r /code/packages/server ./packages
 
 # For some reason there's both a .yarn/cache and .yarn/berry/cache that are
 # being generated, and both have the same content. Not clear why it does this
