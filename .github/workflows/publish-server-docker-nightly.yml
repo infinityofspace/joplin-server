@@ -12,7 +12,7 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
         with:
-          repository: 'https://github.com/laurent22/joplin.git'
+          repository: "laurent22/joplin"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
