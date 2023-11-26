@@ -16,8 +16,9 @@ jobs:
 
       - name: checkout code
         uses: actions/checkout@v4
-        repository: 'https://github.com/laurent22/joplin.git'
-        ref: ${{ steps.get_tag.outputs.TAG }}
+        with:
+          repository: 'https://github.com/laurent22/joplin.git'
+          ref: ${{ steps.get_tag.outputs.TAG }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
