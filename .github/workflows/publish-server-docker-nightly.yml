@@ -1,23 +1,17 @@
-name: build and publish server docker release
+name: build and publish server docker nightly
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - "v*"
+  schedule:
+    - cron: "0 0 */3 * *"
 
 jobs:
   publish-server-docker-release:
     runs-on: ubuntu-latest
     steps:
-      - name: get the tag name
-        id: get_tag
-        run: echo ::set-output name=TAG::$(echo $GITHUB_REF | cut -d / -f 3)
-
       - name: checkout code
         uses: actions/checkout@v4
         repository: 'https://github.com/laurent22/joplin.git'
-        ref: ${{ steps.get_tag.outputs.TAG }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -37,11 +31,10 @@ jobs:
         with:
           push: true
           tags: |
-            ghcr.io/${{ secrets.GH_USERNAME }}/joplin-server:latest
-            ghcr.io/${{ secrets.GH_USERNAME }}/joplin-server:${{ steps.get_tag.outputs.TAG }}
+            ghcr.io/${{ secrets.GH_USERNAME }}/joplin-server:nightly
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           cache-from: type=gha
           cache-to: type=gha,mode=max
           file: Dockerfile.server
           build-args: |
-            VERSION=${{ steps.get_tag.outputs.TAG }}
+            VERSION=nightly
