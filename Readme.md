@@ -5,6 +5,8 @@
 This project offers prebuild Docker images from the Joplin server for amd64, armv7 and arm64 architectures,
 as there are no official Docker images for the armv7 and arm64 architectures.
 
+_Note: armv7 builds are currently failing (see https://github.com/infinityofspace/joplin-server/issues/1)_
+
 ## Usage
 
 You can pull the image with:
