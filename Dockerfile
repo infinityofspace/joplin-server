@@ -6,7 +6,10 @@ FROM node:18-bullseye AS builder
 
 RUN apt-get update \
     && apt-get install -y \
-    python tini \
+        python tini \
+    && if [[ $(uname -m) == arm* ]]; then \
+           apt-get install -y libpangocairo-1.0-0 \
+       fi \
     && rm -rf /var/lib/apt/lists/*
 
 # Enables Yarn
