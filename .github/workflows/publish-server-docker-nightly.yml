@@ -9,10 +9,16 @@ jobs:
   publish-server-docker-nightly:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout upstream code
+        uses: actions/checkout@v4
+        with:
+          path: upstream-code
+          repository: "laurent22/joplin"
+
       - name: checkout code
         uses: actions/checkout@v4
         with:
-          repository: "laurent22/joplin"
+          path: code
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -36,7 +42,7 @@ jobs:
           platforms: linux/amd64,linux/arm64/v8
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          context: .
-          file: Dockerfile.server
+          context: upstream-code
+          file: code/Dockerfile
           build-args: |
             VERSION=nightly
