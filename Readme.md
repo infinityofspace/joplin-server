@@ -20,4 +20,4 @@ The usage is identical to the official Docker image, which is described [here](h
 ## Copyright Notices
 
 Joplin is not affiliated with this project and Joplin® is a trademark of JOPLIN SAS.
-The docker images are licensed with the original license of the server, we can be found [here](https://raw.githubusercontent.com/laurent22/joplin/dev/packages/server/LICENSE.md).
+The docker images are licensed with the original license of the server, which can be found [here](https://raw.githubusercontent.com/laurent22/joplin/dev/packages/server/LICENSE.md).
