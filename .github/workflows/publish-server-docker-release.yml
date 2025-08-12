@@ -15,14 +15,14 @@ jobs:
         run: echo ::set-output name=TAG::$(echo $GITHUB_REF | cut -d / -f 3)
 
       - name: checkout upstream code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: upstream-code
           repository: "laurent22/joplin"
           ref: ${{ steps.get_tag.outputs.TAG }}
 
       - name: checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: code
 
